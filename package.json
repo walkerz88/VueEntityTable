@@ -1,0 +1,38 @@
+{
+  "name": "vue-entity-table",
+  "author": "Anikin Alexander",
+  "private": false,
+  "version": "0.1.18",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/vue-entity-table.umd.cjs",
+  "module": "./dist/vue-entity-table.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vue-entity-table.js",
+      "require": "./dist/vue-entity-table.umd.cjs"
+    },
+    "./dist/*.css": {
+      "import": "./dist/*.css",
+      "require": "./dist/*.css"
+    }
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "npm run build && npm publish --access=public"
+  },
+  "dependencies": {
+    "vue": "^3.3.11"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.5.2",
+    "path": "^0.12.7",
+    "primeicons": "^6.0.1",
+    "primevue": "^3.48.1",
+    "vite": "^5.0.8"
+  }
+}

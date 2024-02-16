@@ -1,0 +1,8 @@
+const TABLE_CONTROLS_CELL_WIDTH = '48px'
+
+export const TABLE_CONTROLS_CELL_STYLES = {
+  width: TABLE_CONTROLS_CELL_WIDTH,
+  minWidth: TABLE_CONTROLS_CELL_WIDTH,
+  maxWidth: TABLE_CONTROLS_CELL_WIDTH,
+  textAlign: 'center'
+}
