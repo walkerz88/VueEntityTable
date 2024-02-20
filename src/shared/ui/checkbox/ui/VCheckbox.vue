@@ -1,5 +1,4 @@
 <script setup>
-import { inject } from 'vue'
 import Checkbox from 'primevue/checkbox'
 
 import { VInputCaption } from '@/shared'

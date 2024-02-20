@@ -1,6 +1,4 @@
 <script setup>
-import { inject } from 'vue'
-
 import Dropdown from 'primevue/dropdown'
 
 import { VField, VInputCaption } from '@/shared'

@@ -1,12 +1,4 @@
-import {
-  ref,
-  computed,
-  inject,
-  watch,
-  useSlots,
-  onMounted,
-  onUnmounted
-} from 'vue'
+import { ref, computed, watch, useSlots, onMounted, onUnmounted } from 'vue'
 
 import { isEmptyValue } from '@/shared'
 
@@ -213,7 +205,7 @@ export const useVueEntityTable = ({ props, emit }) => {
 
     handleUpdateData()
   }
-  
+
   onMounted(() => {
     handleUpdateData()
   })

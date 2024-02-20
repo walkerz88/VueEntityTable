@@ -1,6 +1,4 @@
 <script setup>
-import { inject } from 'vue'
-
 import Calendar from 'primevue/calendar'
 
 import { VField, VInputCaption } from '@/shared'

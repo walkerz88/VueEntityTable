@@ -1,5 +1,5 @@
 <script setup>
-import { inject, computed } from 'vue'
+import { computed } from 'vue'
 
 import Button from 'primevue/button'
 

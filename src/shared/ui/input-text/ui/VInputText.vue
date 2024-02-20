@@ -1,6 +1,4 @@
 <script setup>
-import { inject } from 'vue'
-
 import InputText from 'primevue/inputtext'
 
 import { VField, VInputCaption } from '@/shared'
