@@ -47,7 +47,9 @@ const filterDescriptor = [
 
 const tableData = ref([])
 
-const fetchDataFunction = async () => {
+const fetchDataFunction = async (payload) => {
+  console.log(payload)
+
   const response = await fetch('https://jsonplaceholder.typicode.com/users')
   const data = await response.json()
 

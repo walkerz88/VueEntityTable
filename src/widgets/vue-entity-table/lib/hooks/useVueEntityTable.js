@@ -67,7 +67,7 @@ export const useVueEntityTable = ({ props, emit }) => {
     return filterDescriptor.reduce((accum, { name, submitTransformer }) => {
       const value = filterValues.value[name]
 
-      if (isEmptyValue(value) === true) {
+      if (!value) {
         return accum
       }
 
