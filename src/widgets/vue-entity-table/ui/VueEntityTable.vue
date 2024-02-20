@@ -57,6 +57,10 @@ const props = defineProps({
   showTotal: {
     type: Boolean,
     default: true
+  },
+  copyable: {
+    type: Boolean,
+    default: true
   }
 })
 
@@ -69,7 +73,8 @@ const emit = defineEmits([
   'on-submit-edit-cell',
   'on-toggle-filter',
   'on-toggle-settings',
-  'on-click-edit'
+  'on-click-edit',
+  'on-click-copy'
 ])
 
 const {
@@ -131,14 +136,32 @@ const {
         :expanded-rows="expandedRows"
         :loading="showLoading"
         :editable="editable"
+        :copyable="copyable"
         @update:selected-rows="handleUpdateSelectedRows"
         @update:expanded-rows="handleUpdateExpandedRows"
         @on-click-edit="
-          ({ data, row, index }) => emit('on-click-edit', { data, row, index })
+          ({ row, index }) =>
+            emit('on-click-edit', { data: modelValue, row, index })
+        "
+        @on-click-copy="
+          ({ row, column, value, index }) =>
+            emit('on-click-copy', {
+              data: modelValue,
+              row,
+              column,
+              value,
+              index
+            })
         "
         @on-submit-edit-cell="
-          ({ value, column, row }) =>
-            emit('on-submit-edit-cell', { value, column, row })
+          ({ column, row, value, index }) =>
+            emit('on-submit-edit-cell', {
+              data: modelValue,
+              row,
+              column,
+              value,
+              index
+            })
         "
       >
         <template

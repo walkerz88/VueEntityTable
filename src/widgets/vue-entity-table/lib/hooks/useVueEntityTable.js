@@ -213,7 +213,7 @@ export const useVueEntityTable = ({ props, emit }) => {
 
     handleUpdateData()
   }
-
+  
   onMounted(() => {
     handleUpdateData()
   })

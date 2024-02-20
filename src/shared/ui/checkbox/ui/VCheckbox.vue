@@ -57,8 +57,6 @@ defineProps({
 })
 
 defineEmits(['update:modelValue'])
-
-const getValidationLocalization = inject('getValidationLocalization')
 </script>
 
 <template>
@@ -81,14 +79,6 @@ const getValidationLocalization = inject('getValidationLocalization')
         {{ label }}
       </label>
     </div>
-    <VInputCaption v-if="error" severity="danger">
-      {{
-        getValidationLocalization({
-          field: label,
-          error
-        })
-      }}
-    </VInputCaption>
     <VInputCaption v-if="caption">
       {{ caption }}
     </VInputCaption>

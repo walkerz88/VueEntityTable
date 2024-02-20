@@ -50,14 +50,11 @@ defineProps({
 })
 
 defineEmits(['update:modelValue'])
-
-const getValidationLocalization = inject('getValidationLocalization')
 </script>
 
 <template>
   <VField
     :id="id"
-    v-focustrap="autofocus"
     :label="label"
     :required="required"
     :disabled="disabled"
@@ -77,14 +74,6 @@ const getValidationLocalization = inject('getValidationLocalization')
         @update:model-value="(value) => $emit('update:modelValue', value)"
       />
     </div>
-    <VInputCaption v-if="error" severity="danger">
-      {{
-        getValidationLocalization({
-          field: label,
-          error
-        })
-      }}
-    </VInputCaption>
     <VInputCaption v-if="caption">
       {{ caption }}
     </VInputCaption>

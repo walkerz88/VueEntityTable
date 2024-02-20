@@ -16,6 +16,8 @@ const props = defineProps({
   }
 })
 
+const emit = defineEmits(['on-click-copy'])
+
 const isCopyable = computed(
   () => props.copyable === true && isEmptyValue(props.value) === false
 )
@@ -24,7 +26,7 @@ const handleClick = async () => {
   try {
     await copyToClipboard(props.value)
 
-    console.log('Значение скопировано в буфер обмена')
+    emit('on-click-copy', { value: props.value })
   } catch (e) {
     console.error(e)
   }

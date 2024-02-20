@@ -10,14 +10,17 @@ import {
   VInputCaption,
   VSubmitButton,
   VFieldset,
-  VCheckbox
+  VCheckbox,
+  VCalendar,
+  VInputText
 } from '@/shared'
 
 import {
   FIELD_TYPE_MULTISELECT,
   FIELD_TYPE_MULTICHECKBOX,
   FIELD_TYPE_CHIPS,
-  FIELD_TYPE_CHECKBOX
+  FIELD_TYPE_CHECKBOX,
+  FIELD_TYPE_CALENDAR
 } from '@/shared/constants/fieldTypes'
 
 import { useEntityTableFilter } from '../lib'
@@ -126,19 +129,27 @@ const { generateId, handleChange, handleDrop, handleSubmit } =
           </VInputCaption>
         </VField>
 
-        <VField v-else :id="generateId(field.name)" :label="field.label">
-          <InputText
-            :id="generateId(field.name)"
-            :model-value="modelValue[field.name]"
-            :placeholder="field.placeholder"
-            @update:model-value="
-              (value) => handleChange({ name: field.name, value })
-            "
-          />
-          <VInputCaption v-if="field.caption">
-            {{ field.caption }}
-          </VInputCaption>
-        </VField>
+        <VCalendar
+          v-else-if="field.type === FIELD_TYPE_CALENDAR"
+          :id="generateId(field.name)"
+          :model-value="modelValue[field.name]"
+          :label="field.label"
+          @update:model-value="
+            (value) => handleChange({ name: field.name, value })
+          "
+        />
+
+        <VInputText
+          v-else
+          :id="generateId(field.name)"
+          :model-value="modelValue[field.name]"
+          :label="field.label"
+          :placeholder="field.placeholder"
+          :caption="field.caption"
+          @update:model-value="
+            (value) => handleChange({ name: field.name, value })
+          "
+        />
       </template>
     </div>
     <div class="vue-entity-table-filter__footer">

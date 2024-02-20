@@ -49,6 +49,10 @@ const props = defineProps({
     type: Boolean,
     default: true
   },
+  copyable: {
+    type: Boolean,
+    default: true
+  },
   rowUniqueKey: {
     type: String,
     default: 'id'
@@ -59,7 +63,8 @@ const emit = defineEmits([
   'update:selectedRows',
   'update:expandedRows',
   'on-submit-edit-cell',
-  'on-click-edit'
+  'on-click-edit',
+  'on-click-copy'
 ])
 
 const {
@@ -71,7 +76,6 @@ const {
   totalCols,
   onChangeSelectedAll,
   onChangeSelectedRow,
-  onSubmitEditCell,
   getColumnValue,
   isRowSelected
 } = useEntityTableContent({ props, emit })
@@ -125,7 +129,10 @@ const {
               <th
                 v-if="visibleColumns.includes(column.name)"
                 :style="column.headerStyle"
-                :class="column.headerClass"
+                :class="[
+                  column.align && `vue-entity-table-align-${column.align}`,
+                  column.headerClass
+                ]"
               >
                 {{ column.label }}
               </th>
@@ -164,10 +171,7 @@ const {
                     icon="pi pi-pencil"
                     text
                     rounded
-                    @click="
-                      () =>
-                        emit('on-click-edit', { data: modelValue, row, index })
-                    "
+                    @click="() => emit('on-click-edit', { row, index })"
                   />
                 </td>
 
@@ -198,7 +202,10 @@ const {
                   <td
                     v-if="visibleColumns.includes(column.name)"
                     :style="column.style"
-                    :class="column.class"
+                    :class="[
+                      column.align && `vue-entity-table-align-${column.align}`,
+                      column.class
+                    ]"
                   >
                     <!-- Собственный шаблон -->
                     <slot
@@ -239,27 +246,34 @@ const {
                       :value="getColumnValue({ column, row })"
                       :column="column"
                       :row="row"
-                      @on-submit="onSubmitEditCell"
+                      @on-submit="
+                        ({ value }) =>
+                          emit('on-submit-edit-cell', {
+                            column,
+                            row,
+                            value,
+                            index
+                          })
+                      "
                     />
 
                     <!-- Ячейки, которые можно копировать -->
                     <EntityTableCopyCell
                       v-else
-                      :copyable="column.isCopyable !== false"
                       :value="getColumnValue({ column, row })"
+                      :copyable="
+                        copyable === true && column.isCopyable !== false
+                      "
+                      @on-click-copy="
+                        ({ value }) =>
+                          emit('on-click-copy', row, column, value, index)
+                      "
                     >
                       <!-- Всплывающий текст -->
                       <EntityTableTooltipCell
                         v-if="column.type === FIELD_TYPE_TOOLTIP"
                         :header="column.label"
                         :text="getColumnValue({ column, row })"
-                        clickable
-                        @on-click="
-                          onClickTooltipCell({
-                            value: getColumnValue({ column, row }),
-                            header: column.label
-                          })
-                        "
                       />
 
                       <!-- Обычный текст -->

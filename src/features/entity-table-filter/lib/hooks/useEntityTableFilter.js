@@ -2,6 +2,7 @@ export const useEntityTableFilter = ({ props, emit }) => {
   const generateId = (name) => `filter-field-${name}`
 
   const handleChange = ({ name, value }) => {
+    console.log(value)
     emit('update:modelValue', { ...props.modelValue, [name]: value })
   }
 

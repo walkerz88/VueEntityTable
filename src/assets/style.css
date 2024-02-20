@@ -1,6 +1,7 @@
 /* vue-entity-table */
 
 .vue-entity-table {
+  position: relative;
   height: 100%;
 }
 
@@ -143,20 +144,21 @@
   font-weight: 400;
 }
 
-.vue-entity-table-content__table td:hover .entity-table-copy-cell__button {
+.vue-entity-table-content__table td:hover .vue-entity-table-copy-cell__button {
   display: inline-flex;
 }
 
-.vue-entity-table-content__table td.c-text-right .entity-table-copy-cell {
-  padding-right: unset;
+.vue-entity-table-content__table
+  .vue-entity-table-align-right
+  .vue-entity-table-copy-cell {
+  padding-right: 0;
   padding-left: 2.5rem;
 }
 
 .vue-entity-table-content__table
-  td.c-text-right
-  .entity-table-copy-cell__button {
-  /*TODO in descriptor*/
-  right: unset;
+  .vue-entity-table-align-right
+  .vue-entity-table-copy-cell__button {
+  right: auto;
   left: 0;
 }
 
@@ -196,6 +198,10 @@
   height: 2rem;
   width: 2rem;
   padding: 0;
+}
+
+.vue-entity-table-copy-cell__button > .pi {
+  font-size: 14px;
 }
 
 /* vue-entity-table-edit-cell */
@@ -284,6 +290,10 @@
   border-top: 1px solid var(--vue-entity-table-bluegray-100);
 }
 
+.vue-entity-table-pagination .p-paginator {
+  background-color: var(--vue-entity-table-gray-100);
+}
+
 /* vue-entity-table-tooltip-cell */
 .vue-entity-table-tooltip-cell {
   width: 100px;
@@ -331,10 +341,12 @@
   gap: 1rem;
   font-weight: 400;
 }
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
-/**/
+
+/* helpers */
+.vue-entity-table-align-center {
+  text-align: center;
+}
+
+.vue-entity-table-align-right {
+  text-align: right;
+}

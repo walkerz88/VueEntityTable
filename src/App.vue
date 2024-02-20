@@ -13,7 +13,8 @@ const descriptor = [
   },
   {
     name: 'email',
-    label: 'Email'
+    label: 'Email',
+    align: 'right'
   },
   {
     name: 'name',
@@ -21,11 +22,13 @@ const descriptor = [
   },
   {
     name: 'phone',
-    label: 'Phone'
+    label: 'Phone',
+    type: 'editableText'
   },
   {
     name: 'address',
     label: 'Address',
+    type: 'tooltip',
     dataTransform: ({ value }) => value?.city || 'No address'
   }
 ]
@@ -34,6 +37,11 @@ const filterDescriptor = [
   {
     name: 'id',
     label: 'Filter by ID'
+  },
+  {
+    name: 'date',
+    label: 'Date',
+    type: 'calendar'
   }
 ]
 

@@ -120,10 +120,6 @@ export const useEntityTableContent = ({ props, emit }) => {
     )
   }
 
-  const onSubmitEditCell = ({ value, column, row }) => {
-    emit('on-submit-edit-cell', { value, column, row })
-  }
-
   const getColumnValue = ({ column, row }) => {
     const value = row[column.name]
 
@@ -154,7 +150,6 @@ export const useEntityTableContent = ({ props, emit }) => {
     totalCols,
     onChangeSelectedAll,
     onChangeSelectedRow,
-    onSubmitEditCell,
     getColumnValue,
     isRowSelected
   }

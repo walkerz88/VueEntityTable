@@ -43,9 +43,7 @@ const onSubmit = () => {
   initValue.value = inputValue.value
 
   emit('on-submit', {
-    value: inputValue.value,
-    column: props.column,
-    row: props.row
+    value: inputValue.value
   })
 }
 </script>

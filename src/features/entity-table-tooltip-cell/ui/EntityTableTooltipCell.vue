@@ -1,5 +1,6 @@
 <script setup>
-/* import { useDialogStore } from '@/app/store'
+import { ref } from 'vue'
+import Dialog from 'primevue/dialog'
 
 const props = defineProps({
   header: {
@@ -12,21 +13,25 @@ const props = defineProps({
   }
 })
 
-const dialog = useDialogStore()
+const visible = ref(false)
 
 const onClick = () => {
-  dialog.show({ header: props.header, text: props.text })
-} */
+  visible.value = true
+}
 </script>
 
 <template>
-  <div>{{ text }}</div>
-  <!-- <div
-    v-if="text"
-    v-tooltip="{ value: text, class: 'entity-table-v-tooltip' }"
-    class="vue-entity-table-tooltip-cell"
-    @click="onClick"
+  <div v-if="text" class="vue-entity-table-tooltip-cell" @click="onClick">
+    {{ text }}
+  </div>
+
+  <Dialog
+    v-model:visible="visible"
+    :header="header"
+    :style="{ width: '100%', maxWidth: '640px' }"
+    :draggable="false"
+    modal
   >
     {{ text }}
-  </div> -->
+  </Dialog>
 </template>

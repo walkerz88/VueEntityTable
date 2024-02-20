@@ -8,3 +8,4 @@ export * from "./input-caption";
 export * from "./input-text";
 export * from "./loader";
 export * from "./submit-button";
+export * from "./calendar";
