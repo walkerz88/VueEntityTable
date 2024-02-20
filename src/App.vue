@@ -45,6 +45,21 @@ const filterDescriptor = [
     props: {
       showTime: true
     }
+  },
+  {
+    name: 'dropdown',
+    label: 'Dropdown',
+    type: 'select',
+    options: [
+      {
+        label: 'hello',
+        value: 'hello'
+      },
+      {
+        label: 'world',
+        value: 'world'
+      }
+    ]
   }
 ]
 

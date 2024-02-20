@@ -12,11 +12,13 @@ import {
   VFieldset,
   VCheckbox,
   VCalendar,
-  VInputText
+  VInputText,
+  VDropdown
 } from '@/shared'
 
 import {
   FIELD_TYPE_MULTISELECT,
+  FIELD_TYPE_SELECT,
   FIELD_TYPE_MULTICHECKBOX,
   FIELD_TYPE_CHIPS,
   FIELD_TYPE_CHECKBOX,
@@ -52,8 +54,21 @@ const { generateId, handleChange, handleDrop, handleSubmit } =
   <div class="vue-entity-table-filter">
     <div class="vue-entity-table-filter__content">
       <template v-for="field in filterDescriptor" :key="field.name">
+        <VDropdown
+          v-if="field.type === FIELD_TYPE_SELECT"
+          v-bind="field.props"
+          :id="generateId(field.name)"
+          :model-value="modelValue[field.name]"
+          :label="field.label"
+          :placeholder="field.placeholder"
+          :options="field.options || []"
+          @update:model-value="
+            (value) => handleChange({ name: field.name, value })
+          "
+        />
+
         <VField
-          v-if="field.type === FIELD_TYPE_MULTISELECT"
+          v-else-if="field.type === FIELD_TYPE_MULTISELECT"
           :id="generateId(field.name)"
           :label="field.label"
         >

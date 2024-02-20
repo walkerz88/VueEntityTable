@@ -14,11 +14,11 @@ defineProps({
   },
   optionLabel: {
     type: String,
-    default: undefined
+    default: 'label'
   },
   optionValue: {
     type: String,
-    default: undefined
+    default: 'value'
   },
   id: {
     type: String,
