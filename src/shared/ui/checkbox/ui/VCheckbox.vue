@@ -32,11 +32,6 @@ defineProps({
     type: String,
     default: ''
   },
-  error: {
-    type: Object,
-    required: false,
-    default: null
-  },
   caption: {
     type: String,
     default: ''
@@ -69,7 +64,6 @@ defineEmits(['update:modelValue'])
         :true-value="trueValue"
         :binary="binary"
         :name="id"
-        :class="{ 'p-invalid': error }"
         @update:model-value="
           (nextValue) => $emit('update:modelValue', nextValue)
         "
@@ -105,11 +99,6 @@ defineEmits(['update:modelValue'])
 
 .VCheckbox__caption {
   color: var(--text-color-secondary);
-  margin-top: 0.25rem;
-}
-
-.VCheckbox__error {
-  color: var(--red-500);
   margin-top: 0.25rem;
 }
 </style>

@@ -32,11 +32,6 @@ defineProps({
     type: String,
     default: ''
   },
-  error: {
-    type: Object,
-    required: false,
-    default: null
-  },
   caption: {
     type: String,
     default: ''
@@ -51,12 +46,7 @@ defineEmits(['update:modelValue'])
 </script>
 
 <template>
-  <VField
-    :id="id"
-    :label="label"
-    :required="required"
-    :disabled="disabled"
-  >
+  <VField :id="id" :label="label" :required="required" :disabled="disabled">
     <div class="VInputText__wrapper">
       <i
         v-show="loading === true"
@@ -67,7 +57,6 @@ defineEmits(['update:modelValue'])
         :model-value="modelValue"
         :disabled="disabled"
         :placeholder="placeholder"
-        :class="{ 'p-invalid': error }"
         :autofocus="autofocus"
         @update:model-value="(value) => $emit('update:modelValue', value)"
       />

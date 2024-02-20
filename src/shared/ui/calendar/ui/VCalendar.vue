@@ -52,11 +52,6 @@ defineProps({
     type: String,
     default: 'input'
   },
-  error: {
-    type: Object,
-    required: false,
-    default: null
-  },
   caption: {
     type: String,
     default: ''

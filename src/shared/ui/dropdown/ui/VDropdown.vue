@@ -44,11 +44,6 @@ defineProps({
     type: String,
     default: ''
   },
-  error: {
-    type: Object,
-    required: false,
-    default: null
-  },
   caption: {
     type: String,
     default: ''
@@ -56,6 +51,10 @@ defineProps({
   autofocus: {
     type: Boolean,
     default: false
+  },
+  showClear: {
+    type: Boolean,
+    default: true
   }
 })
 
@@ -63,12 +62,7 @@ defineEmits(['update:modelValue'])
 </script>
 
 <template>
-  <VField
-    :id="id"
-    :label="label"
-    :required="required"
-    :disabled="disabled"
-  >
+  <VField :id="id" :label="label" :required="required" :disabled="disabled">
     <Dropdown
       :id="id"
       :model-value="modelValue"
@@ -77,8 +71,8 @@ defineEmits(['update:modelValue'])
       :option-value="optionValue"
       :disabled="disabled"
       :placeholder="placeholder"
-      :class="{ 'p-invalid': error }"
       :autofocus="autofocus"
+      :show-clear="showClear"
       class="v-dropdown"
       @update:model-value="(value) => $emit('update:modelValue', value)"
     />
