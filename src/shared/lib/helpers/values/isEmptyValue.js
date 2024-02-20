@@ -1,4 +1,8 @@
 export const isEmptyValue = (value) => {
+  if (value instanceof Date) {
+    return false
+  }
+
   return (
     ['', null, undefined, '{}'].includes(value) === true ||
     (Array.isArray(value) === true && value.length === 0) ||
