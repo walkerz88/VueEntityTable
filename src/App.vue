@@ -41,7 +41,10 @@ const filterDescriptor = [
   {
     name: 'date',
     label: 'Date',
-    type: 'calendar'
+    type: 'calendar',
+    props: {
+      showTime: true
+    }
   }
 ]
 

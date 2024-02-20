@@ -73,6 +73,10 @@ defineProps({
     type: Boolean,
     default: false
   },
+  hideOnDateTimeSelect: {
+    type: Boolean,
+    default: true
+  },
   hourFormat: {
     type: String,
     default: '24'
@@ -97,6 +101,7 @@ defineEmits(['update:modelValue'])
       :show-time="showTime"
       :show-seconds="showSeconds"
       :hour-format="hourFormat"
+      :hide-on-date-time-select="hideOnDateTimeSelect"
       class="v-calendar"
       @update:model-value="(value) => $emit('update:modelValue', value)"
     />

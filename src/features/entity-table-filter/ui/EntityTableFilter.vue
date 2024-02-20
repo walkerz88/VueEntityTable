@@ -131,6 +131,7 @@ const { generateId, handleChange, handleDrop, handleSubmit } =
 
         <VCalendar
           v-else-if="field.type === FIELD_TYPE_CALENDAR"
+          v-bind="field.props"
           :id="generateId(field.name)"
           :model-value="modelValue[field.name]"
           :label="field.label"
