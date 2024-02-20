@@ -36,12 +36,14 @@ const descriptor = [
 const filterDescriptor = [
   {
     name: 'id',
-    label: 'Filter by ID'
+    label: 'Filter by ID',
+    value: ''
   },
   {
     name: 'date',
     label: 'Date',
     type: 'calendar',
+    value: null,
     props: {
       showTime: true
     }
@@ -50,6 +52,7 @@ const filterDescriptor = [
     name: 'dropdown',
     label: 'Dropdown',
     type: 'select',
+    value: null,
     options: [
       {
         label: 'hello',

@@ -62,7 +62,6 @@ const props = defineProps({
 const emit = defineEmits([
   'update:selectedRows',
   'update:expandedRows',
-  'on-submit-edit-cell',
   'on-click-edit',
   'on-click-copy'
 ])
@@ -248,7 +247,7 @@ const {
                       :row="row"
                       @on-submit="
                         ({ value }) =>
-                          emit('on-submit-edit-cell', {
+                          column.submitFunction({
                             column,
                             row,
                             value,

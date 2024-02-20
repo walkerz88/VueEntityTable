@@ -70,7 +70,6 @@ const emit = defineEmits([
   'update:expandedRows',
   'on-row-expand',
   'on-row-collapse',
-  'on-submit-edit-cell',
   'on-toggle-filter',
   'on-toggle-settings',
   'on-click-edit',
@@ -146,16 +145,6 @@ const {
         @on-click-copy="
           ({ row, column, value, index }) =>
             emit('on-click-copy', {
-              data: modelValue,
-              row,
-              column,
-              value,
-              index
-            })
-        "
-        @on-submit-edit-cell="
-          ({ column, row, value, index }) =>
-            emit('on-submit-edit-cell', {
               data: modelValue,
               row,
               column,

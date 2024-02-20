@@ -190,7 +190,7 @@ export const useVueEntityTable = ({ props, emit }) => {
   }
 
   const handleUpdateData = () => {
-    /* handleUpdateSelectedRows([]) */
+    handleUpdateSelectedRows([])
     onUpdateExpandedRows([])
 
     if (props.fetchDataFunction === undefined) {
