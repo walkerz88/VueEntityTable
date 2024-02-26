@@ -268,6 +268,7 @@ export const useVueEntityTable = ({ props, emit }) => {
 
   const handleSearch = (value) => {
     isSearchLoading.value = true
+    stateOffset.value = 0
 
     emit('update:search', value)
 
