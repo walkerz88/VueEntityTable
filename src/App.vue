@@ -67,8 +67,18 @@ const filterDescriptor = [
 ]
 
 const tableData = ref([])
+const search = ref('')
 
 const fetchDataFunction = async (payload) => {
+  console.log(payload)
+
+  const response = await fetch('https://jsonplaceholder.typicode.com/users')
+  const data = await response.json()
+
+  return { data }
+}
+
+const searchDataFunction = async (payload) => {
   console.log(payload)
 
   const response = await fetch('https://jsonplaceholder.typicode.com/users')
@@ -82,10 +92,12 @@ const fetchDataFunction = async (payload) => {
   <div class="wrapper">
     <VueEntityTable
       v-model="tableData"
+      v-model:search="search"
       :descriptor="descriptor"
       :filter-descriptor="filterDescriptor"
       :fetch-data-function="fetchDataFunction"
-      :show-total="true"
+      :search-data-function="searchDataFunction"
+      show-total
       @on-click-edit="({ row }) => console.log({ row })"
     />
   </div>

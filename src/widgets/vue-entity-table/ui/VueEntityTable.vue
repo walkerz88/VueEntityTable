@@ -61,6 +61,30 @@ const props = defineProps({
   copyable: {
     type: Boolean,
     default: true
+  },
+  /* router: {
+    type: Object,
+    default: undefined
+  },
+  saveFilterToUrl: {
+    type: Boolean,
+    default: false
+  }, */
+  search: {
+    type: String,
+    default: undefined
+  },
+  searchDataFunction: {
+    type: Function,
+    default: undefined
+  },
+  searchId: {
+    type: String,
+    default: 'entity-search'
+  },
+  searchPlaceholder: {
+    type: String,
+    default: 'Search'
   }
 })
 
@@ -68,6 +92,7 @@ const emit = defineEmits([
   'update:modelValue',
   'update:selectedRows',
   'update:expandedRows',
+  'update:search',
   'on-row-expand',
   'on-row-collapse',
   'on-toggle-filter',
@@ -90,6 +115,7 @@ const {
   filterIsDirty,
   sidebarActive,
   someSidebarActive,
+  isSearchLoading,
   handleToggleSidebar,
   closeAllSidebars,
   handlePageChange,
@@ -97,7 +123,8 @@ const {
   handleUpdateSelectedRows,
   handleDropAllSelected,
   handleUpdateExpandedRows,
-  handleSubmitFilter
+  handleSubmitFilter,
+  handleSearch
 } = useVueEntityTable({ props, emit })
 </script>
 <template>
@@ -109,6 +136,9 @@ const {
       ]"
     >
       <EntityTableTopBar
+        :search="search"
+        :search-id="searchId"
+        :search-placeholder="searchPlaceholder"
         :selected-rows="selectedRows"
         :has-filter="hasFilter"
         :has-settings="hasSettings"
@@ -116,9 +146,11 @@ const {
         :settings-active="sidebarActive.settings"
         :filter-is-dirty="filterIsDirty"
         :loading="showLoading"
+        :search-loading="isSearchLoading"
+        @update:toggle-aside="handleToggleSidebar"
+        @update:search="(value) => handleSearch(value)"
         @on-update-data="handleUpdateData"
         @on-drop-all-selected="handleDropAllSelected"
-        @update:toggle-aside="handleToggleSidebar"
       >
         <template #topbar-left>
           <slot name="topbar-left" />

@@ -1,7 +1,7 @@
 <script setup>
 import Button from 'primevue/button'
 
-import { isEmptyValue } from '@/shared'
+import { isEmptyValue, VInputText } from '@/shared'
 
 const props = defineProps({
   loading: {
@@ -31,13 +31,30 @@ const props = defineProps({
   settingsActive: {
     type: Boolean,
     default: false
+  },
+  search: {
+    type: String,
+    default: undefined
+  },
+  searchId: {
+    type: String,
+    default: 'entity-search'
+  },
+  searchPlaceholder: {
+    type: String,
+    default: 'Search'
+  },
+  searchLoading: {
+    type: Boolean,
+    default: false
   }
 })
 
 const emit = defineEmits([
+  'update:toggle-aside',
+  'update:search',
   'on-update-data',
-  'on-drop-all-selected',
-  'update:toggle-aside'
+  'on-drop-all-selected'
 ])
 
 const handleUpdateData = () => {
@@ -77,23 +94,24 @@ const handleToggleFilter = () => {
         class="vue-entity-table-top-bar__icon-button"
         @click="handleToggleSettings"
       /> -->
-      <div class="vue-entity-table-top-bar__loading">
-        <Button
-          icon="pi pi-refresh"
-          severity="secondary"
-          text
-          rounded
-          class="vue-entity-table-top-bar__icon-button"
-          :loading="loading === true"
-          @click="handleUpdateData"
-        />
-        <span
-          v-show="loading === true"
-          class="vue-entity-table-top-bar__loading-caption"
-        >
-          Загрузка...
-        </span>
-      </div>
+      <Button
+        icon="pi pi-refresh"
+        severity="secondary"
+        text
+        rounded
+        class="vue-entity-table-top-bar__icon-button"
+        :loading="loading === true"
+        @click="handleUpdateData"
+      />
+      <VInputText
+        v-if="search !== undefined"
+        :id="searchId"
+        :model-value="search"
+        :loading="searchLoading === true"
+        :placeholder="searchPlaceholder"
+        remove-margin
+        @update:model-value="(value) => emit('update:search', value)"
+      />
       <slot name="topbar-left" />
       <div
         v-if="isEmptyValue(selectedRows) === false"

@@ -325,16 +325,6 @@
   height: 2rem;
 }
 
-.vue-entity-table-top-bar__loading {
-  display: flex;
-  align-items: center;
-}
-
-.vue-entity-table-top-bar__loading-caption {
-  font-size: 13px;
-  color: var(--vue-entity-table-bluegray-300);
-}
-
 .vue-entity-table-top-bar__counter {
   display: flex;
   align-items: center;

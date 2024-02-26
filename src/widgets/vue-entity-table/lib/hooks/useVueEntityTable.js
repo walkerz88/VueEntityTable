@@ -1,6 +1,6 @@
 import { ref, computed, watch, useSlots, onMounted, onUnmounted } from 'vue'
 
-import { isEmptyValue } from '@/shared'
+import { isEmptyValue, debounce } from '@/shared'
 
 let abortController = new AbortController()
 
@@ -21,6 +21,7 @@ export const useVueEntityTable = ({ props, emit }) => {
   const stateOffset = ref(0)
   const stateLimit = ref(20)
   const isLoading = ref(false)
+  const isSearchLoading = ref(false)
   const visibleColumns = ref(props.descriptor.map((item) => item.name))
   const filterValues = ref(getInitFilterValues(props.filterDescriptor))
 
@@ -123,6 +124,12 @@ export const useVueEntityTable = ({ props, emit }) => {
       stateOffset.value = stateLimit.value * page
     }
 
+    if (props.search !== undefined && props.search !== '') {
+      onSearchData()
+
+      return
+    }
+
     handleUpdateData()
   }
 
@@ -206,6 +213,67 @@ export const useVueEntityTable = ({ props, emit }) => {
     handleUpdateData()
   }
 
+  const onSearchData = async () => {
+    if (props.search === '') {
+      isSearchLoading.value = false
+
+      onFetchData()
+
+      return
+    }
+
+    abortController.abort()
+
+    abortController = new AbortController()
+
+    const payload = {
+      query: props.search,
+      limit: stateLimit.value,
+      offset: stateOffset.value
+    }
+
+    const options = { signal: abortController.signal }
+
+    isLoading.value = true
+
+    try {
+      const { data, total } = await props.searchDataFunction({
+        payload,
+        options
+      })
+
+      const transformedData = props.fetchDataTransformer(data)
+
+      emit('update:modelValue', transformedData)
+
+      stateTotal.value = total
+
+      isSearchLoading.value = false
+      isLoading.value = false
+
+      if (total > 0) {
+        closeAllSidebars()
+      }
+    } catch (e) {
+      if (e.isCancel !== true) {
+        console.error(e)
+
+        isSearchLoading.value = false
+        isLoading.value = false
+      }
+    }
+  }
+
+  const onSearch = debounce(onSearchData, 1000)
+
+  const handleSearch = (value) => {
+    isSearchLoading.value = true
+
+    emit('update:search', value)
+
+    onSearch()
+  }
+
   onMounted(() => {
     handleUpdateData()
   })
@@ -230,6 +298,7 @@ export const useVueEntityTable = ({ props, emit }) => {
     hasSettings,
     sidebarActive,
     someSidebarActive,
+    isSearchLoading,
     handleToggleSidebar,
     closeAllSidebars,
     handlePageChange,
@@ -237,6 +306,7 @@ export const useVueEntityTable = ({ props, emit }) => {
     handleUpdateSelectedRows,
     handleDropAllSelected,
     handleUpdateExpandedRows,
-    handleSubmitFilter
+    handleSubmitFilter,
+    handleSearch
   }
 }
