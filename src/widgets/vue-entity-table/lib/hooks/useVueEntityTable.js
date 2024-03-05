@@ -1,4 +1,12 @@
-import { ref, computed, watch, useSlots, onMounted, onUnmounted } from 'vue'
+import {
+  ref,
+  computed,
+  watch,
+  useSlots,
+  onMounted,
+  onUnmounted,
+  nextTick
+} from 'vue'
 
 import { isEmptyValue, debounce } from '@/shared'
 
@@ -116,35 +124,23 @@ export const useVueEntityTable = ({ props, emit }) => {
     handleUpdateSelectedRows([])
   }
 
-  const handlePageChange = ({ page, rows }) => {
-    if (stateLimit.value !== rows) {
-      stateLimit.value = rows
-      stateOffset.value = 0
-    } else {
-      stateOffset.value = stateLimit.value * page
-    }
-
-    if (props.search !== undefined && props.search !== '') {
-      onSearchData()
-
-      return
-    }
-
-    handleUpdateData()
-  }
-
   const onFetchData = async () => {
     abortController.abort()
 
     abortController = new AbortController()
 
+    const { sortKey, sortDirection } = props
+
     const payload = {
       limit: stateLimit.value,
       offset: stateOffset.value,
-      filter: filterSubmitValues.value,
-      sort: {
-        key: 'id',
-        direction: 'ASC'
+      filter: filterSubmitValues.value
+    }
+
+    if (isEmptyValue(sortKey) === false) {
+      payload.sort = {
+        key: sortKey,
+        direction: sortDirection
       }
     }
 
@@ -196,9 +192,13 @@ export const useVueEntityTable = ({ props, emit }) => {
     emit('on-row-expand', { row, index })
   }
 
-  const handleUpdateData = () => {
+  const dropBeforeFetch = () => {
     handleUpdateSelectedRows([])
     onUpdateExpandedRows([])
+  }
+
+  const handleUpdateData = () => {
+    dropBeforeFetch()
 
     if (props.fetchDataFunction === undefined) {
       return
@@ -214,6 +214,8 @@ export const useVueEntityTable = ({ props, emit }) => {
   }
 
   const onSearchData = async () => {
+    dropBeforeFetch()
+
     if (props.search === '') {
       isSearchLoading.value = false
 
@@ -275,6 +277,49 @@ export const useVueEntityTable = ({ props, emit }) => {
     onSearch()
   }
 
+  const initFetchData = () => {
+    if (props.search !== undefined && props.search !== '') {
+      onSearchData()
+
+      return
+    }
+
+    handleUpdateData()
+  }
+
+  const handlePageChange = ({ page, rows }) => {
+    if (stateLimit.value !== rows) {
+      stateLimit.value = rows
+      stateOffset.value = 0
+    } else {
+      stateOffset.value = stateLimit.value * page
+    }
+
+    initFetchData()
+  }
+
+  const handleSort = async () => {
+    await nextTick()
+
+    if (isLoading.value === true) {
+      return
+    }
+
+    initFetchData()
+  }
+
+  const handleUpdateSortKey = async (value) => {
+    emit('update:sortKey', value)
+
+    handleSort()
+  }
+
+  const handleUpdateSortDirection = (value) => {
+    emit('update:sortDirection', value)
+
+    handleSort()
+  }
+
   onMounted(() => {
     handleUpdateData()
   })
@@ -308,6 +353,8 @@ export const useVueEntityTable = ({ props, emit }) => {
     handleDropAllSelected,
     handleUpdateExpandedRows,
     handleSubmitFilter,
-    handleSearch
+    handleSearch,
+    handleUpdateSortKey,
+    handleUpdateSortDirection
   }
 }

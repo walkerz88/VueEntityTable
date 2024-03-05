@@ -10,7 +10,11 @@ import {
 
 import { VImageThumb, VLoader, isBoolean, isEmptyValue } from '@/shared'
 
+import { EntityTableSortButton } from '../components'
+
 import { useEntityTableContent } from '../lib'
+
+import { SORT_DESC } from '@/shared/constants/sort'
 
 import { TABLE_CONTROLS_CELL_STYLES } from './../constants'
 import {
@@ -56,12 +60,22 @@ const props = defineProps({
   rowUniqueKey: {
     type: String,
     default: 'id'
+  },
+  sortKey: {
+    type: String,
+    default: null
+  },
+  sortDirection: {
+    type: String,
+    default: SORT_DESC
   }
 })
 
 const emit = defineEmits([
   'update:selectedRows',
   'update:expandedRows',
+  'update:sortKey',
+  'update:sortDirection',
   'on-click-edit',
   'on-click-copy'
 ])
@@ -130,10 +144,22 @@ const {
                 :style="column.headerStyle"
                 :class="[
                   column.align && `vue-entity-table-align-${column.align}`,
+                  column.sortable === true &&
+                    'vue-entity-table-content__sortable',
                   column.headerClass
                 ]"
               >
                 {{ column.label }}
+                <EntityTableSortButton
+                  v-if="column.sortable === true"
+                  :sort-key="sortKey"
+                  :sort-direction="sortDirection"
+                  :column="column"
+                  @update:sort-key="(value) => emit('update:sortKey', value)"
+                  @update:sort-direction="
+                    (value) => emit('update:sortDirection', value)
+                  "
+                />
               </th>
             </template>
           </tr>

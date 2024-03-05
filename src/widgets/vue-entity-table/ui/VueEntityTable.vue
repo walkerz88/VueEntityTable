@@ -10,6 +10,8 @@ import {
 
 import { useVueEntityTable } from '../lib'
 
+import { SORT_DESC } from '@/shared/constants/sort'
+
 import '@/assets/variables.css'
 import '@/assets/style.css'
 
@@ -85,6 +87,14 @@ const props = defineProps({
   searchPlaceholder: {
     type: String,
     default: 'Search'
+  },
+  sortKey: {
+    type: String,
+    default: null
+  },
+  sortDirection: {
+    type: String,
+    default: SORT_DESC
   }
 })
 
@@ -93,6 +103,8 @@ const emit = defineEmits([
   'update:selectedRows',
   'update:expandedRows',
   'update:search',
+  'update:sortKey',
+  'update:sortDirection',
   'on-row-expand',
   'on-row-collapse',
   'on-toggle-filter',
@@ -124,7 +136,9 @@ const {
   handleDropAllSelected,
   handleUpdateExpandedRows,
   handleSubmitFilter,
-  handleSearch
+  handleSearch,
+  handleUpdateSortKey,
+  handleUpdateSortDirection
 } = useVueEntityTable({ props, emit })
 </script>
 <template>
@@ -168,6 +182,10 @@ const {
         :loading="showLoading"
         :editable="editable"
         :copyable="copyable"
+        :sort-key="sortKey"
+        :sort-direction="sortDirection"
+        @update:sort-key="handleUpdateSortKey"
+        @update:sort-direction="handleUpdateSortDirection"
         @update:selected-rows="handleUpdateSelectedRows"
         @update:expanded-rows="handleUpdateExpandedRows"
         @on-click-edit="

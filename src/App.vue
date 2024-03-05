@@ -3,22 +3,27 @@ import { ref } from 'vue'
 
 import { VueEntityTable } from './widgets/vue-entity-table'
 
+import { SORT_DESC } from '@/shared/constants/sort'
+
 import 'primevue/resources/themes/lara-light-blue/theme.css'
 import 'primeicons/primeicons.css'
 
 const descriptor = [
   {
     name: 'id',
-    label: 'ID'
+    label: 'ID',
+    sortable: true
   },
   {
     name: 'email',
     label: 'Email',
-    align: 'right'
+    align: 'right',
+    sortable: true
   },
   {
     name: 'name',
-    label: 'Name'
+    label: 'Name',
+    sortable: true
   },
   {
     name: 'phone',
@@ -68,6 +73,8 @@ const filterDescriptor = [
 
 const tableData = ref([])
 const search = ref('')
+const sortKey = ref(null)
+const sortDirection = ref(SORT_DESC)
 
 const fetchDataFunction = async (payload) => {
   console.log(payload)
@@ -90,9 +97,12 @@ const searchDataFunction = async (payload) => {
 
 <template>
   <div class="wrapper">
+    {{ sortKey }}{{ sortDirection }}{{ search }}
     <VueEntityTable
       v-model="tableData"
       v-model:search="search"
+      v-model:sort-key="sortKey"
+      v-model:sort-direction="sortDirection"
       :descriptor="descriptor"
       :filter-descriptor="filterDescriptor"
       :fetch-data-function="fetchDataFunction"
