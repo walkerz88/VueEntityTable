@@ -97,7 +97,6 @@ const searchDataFunction = async (payload) => {
 
 <template>
   <div class="wrapper">
-    {{ sortKey }}{{ sortDirection }}{{ search }}
     <VueEntityTable
       v-model="tableData"
       v-model:search="search"

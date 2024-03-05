@@ -142,24 +142,27 @@ const {
               <th
                 v-if="visibleColumns.includes(column.name)"
                 :style="column.headerStyle"
-                :class="[
-                  column.align && `vue-entity-table-align-${column.align}`,
-                  column.sortable === true &&
-                    'vue-entity-table-content__sortable',
-                  column.headerClass
-                ]"
+                :class="column.headerClass"
               >
-                {{ column.label }}
-                <EntityTableSortButton
-                  v-if="column.sortable === true"
-                  :sort-key="sortKey"
-                  :sort-direction="sortDirection"
-                  :column="column"
-                  @update:sort-key="(value) => emit('update:sortKey', value)"
-                  @update:sort-direction="
-                    (value) => emit('update:sortDirection', value)
-                  "
-                />
+                <div
+                  :class="[
+                    'vue-entity-table-content__th',
+                    column.align &&
+                      `vue-entity-table-content__th--${column.align}`
+                  ]"
+                >
+                  <span>{{ column.label }}</span>
+                  <EntityTableSortButton
+                    v-if="column.sortable === true"
+                    :sort-key="sortKey"
+                    :sort-direction="sortDirection"
+                    :column="column"
+                    @update:sort-key="(value) => emit('update:sortKey', value)"
+                    @update:sort-direction="
+                      (value) => emit('update:sortDirection', value)
+                    "
+                  />
+                </div>
               </th>
             </template>
           </tr>

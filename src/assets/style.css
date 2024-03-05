@@ -139,11 +139,6 @@
   pointer-events: none;
 }
 
-.vue-entity-table-content__table th.vue-entity-table-content__sortable {
-  position: relative;
-  padding-right: 2rem;
-}
-
 .vue-entity-table-content__table td {
   border-bottom: 1px solid var(--vue-entity-table-bluegray-100);
   font-weight: 400;
@@ -179,6 +174,29 @@
   z-index: 100;
 }
 
+.vue-entity-table-content__th {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.5rem;
+}
+
+.vue-entity-table-content__th--right {
+  justify-content: flex-end;
+}
+
+.vue-entity-table-content__th--right .vue-entity-table-sort-button {
+  order: 10;
+}
+
+.vue-entity-table-content__th--center {
+  justify-content: center;
+}
+
+.vue-entity-table-content__th > span {
+  order: 20;
+}
+
 .vue-entity-table-content__icon {
   width: 2rem;
   height: 2rem;
@@ -186,13 +204,10 @@
 
 /* entity-table-sort */
 .vue-entity-table-sort-button {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
   width: 1.25rem;
   height: 1.25rem;
   padding: 0;
+  order: 30;
 }
 
 .vue-entity-table-sort-button .pi {
