@@ -141,6 +141,10 @@ export const useEntityTableContent = ({ props, emit }) => {
     )
   }
 
+  const handleSubmitEditCell = ({ column, row, value, index }) => {
+    emit('on-submit-edit-cell', { column, row, value, index })
+  }
+
   return {
     slots,
     selectableRows,
@@ -151,6 +155,7 @@ export const useEntityTableContent = ({ props, emit }) => {
     onChangeSelectedAll,
     onChangeSelectedRow,
     getColumnValue,
-    isRowSelected
+    isRowSelected,
+    handleSubmitEditCell
   }
 }

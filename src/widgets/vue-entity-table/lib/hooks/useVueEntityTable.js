@@ -73,25 +73,62 @@ export const useVueEntityTable = ({ props, emit }) => {
 
     const { filterDescriptor } = props
 
-    return filterDescriptor.reduce((accum, { name, submitTransformer }) => {
-      const value = filterValues.value[name]
+    return filterDescriptor.reduce(
+      (accum, { name, nameFrom, nameTo, submitTransformer }) => {
+        const value = filterValues.value[name]
+        const valueFrom = filterValues.value[nameFrom]
+        const valueTo = filterValues.value[nameTo]
 
-      if (isEmptyValue(value) === true) {
-        return accum
-      }
+        if (
+          isEmptyValue(value) === true &&
+          isEmptyValue(valueFrom) === true &&
+          isEmptyValue(valueTo) === true
+        ) {
+          return accum
+        }
 
-      return {
-        ...accum,
-        [name]:
-          submitTransformer !== undefined
-            ? submitTransformer({
-                value,
-                filterValues: filterValues.value,
-                filterDescriptor
-              })
-            : value
-      }
-    }, {})
+        let result = {}
+
+        if (name && isEmptyValue(value) === false) {
+          result[name] =
+            submitTransformer !== undefined
+              ? submitTransformer({
+                  value,
+                  filterValues: filterValues.value,
+                  filterDescriptor
+                })
+              : value
+        }
+
+        if (nameFrom && isEmptyValue(valueFrom) === false) {
+          result[nameFrom] =
+            submitTransformer !== undefined
+              ? submitTransformer({
+                  value: valueFrom,
+                  filterValues: filterValues.value,
+                  filterDescriptor
+                })
+              : valueFrom
+        }
+
+        if (nameTo && isEmptyValue(valueTo) === false) {
+          result[nameTo] =
+            submitTransformer !== undefined
+              ? submitTransformer({
+                  value: valueTo,
+                  filterValues: filterValues.value,
+                  filterDescriptor
+                })
+              : valueTo
+        }
+
+        return {
+          ...accum,
+          ...result
+        }
+      },
+      {}
+    )
   })
 
   const hasSettings = computed(() => {
@@ -198,8 +235,6 @@ export const useVueEntityTable = ({ props, emit }) => {
   }
 
   const handleUpdateData = () => {
-    dropBeforeFetch()
-
     if (props.fetchDataFunction === undefined) {
       return
     }
@@ -210,6 +245,7 @@ export const useVueEntityTable = ({ props, emit }) => {
   const handleSubmitFilter = () => {
     stateOffset.value = 0
 
+    dropBeforeFetch()
     handleUpdateData()
   }
 
@@ -320,6 +356,10 @@ export const useVueEntityTable = ({ props, emit }) => {
     handleSort()
   }
 
+  const handleSubmitEditCell = ({ column, row, value, index }) => {
+    emit('on-submit-edit-cell', { column, row, value, index })
+  }
+
   onMounted(() => {
     handleUpdateData()
   })
@@ -355,6 +395,7 @@ export const useVueEntityTable = ({ props, emit }) => {
     handleSubmitFilter,
     handleSearch,
     handleUpdateSortKey,
-    handleUpdateSortDirection
+    handleUpdateSortDirection,
+    handleSubmitEditCell
   }
 }

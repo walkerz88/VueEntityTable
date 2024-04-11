@@ -95,6 +95,14 @@ const searchDataFunction = async (payload) => {
 
   return { data }
 }
+
+const handleClickEdit = (data) => {
+  console.log(data)
+}
+
+const handleSubmitEditCell = (data) => {
+  console.log(data)
+}
 </script>
 
 <template>
@@ -110,8 +118,8 @@ const searchDataFunction = async (payload) => {
       :filter-descriptor="filterDescriptor"
       :fetch-data-function="fetchDataFunction"
       :search-data-function="searchDataFunction"
-      show-total
-      @on-click-edit="({ row }) => console.log({ row })"
+      @on-click-edit="handleClickEdit"
+      @on-submit-edit-cell="handleSubmitEditCell"
     >
       <template #expansion="{ row, index }">
         <div class="expansion">

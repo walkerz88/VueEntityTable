@@ -40,6 +40,10 @@ const props = defineProps({
     type: Boolean,
     default: true
   },
+  editIcon: {
+    type: String,
+    default: 'pi pi-pencil'
+  },
   fetchDataFunction: {
     type: Function,
     default: undefined
@@ -64,14 +68,6 @@ const props = defineProps({
     type: Boolean,
     default: true
   },
-  /* router: {
-    type: Object,
-    default: undefined
-  },
-  saveFilterToUrl: {
-    type: Boolean,
-    default: false
-  }, */
   search: {
     type: String,
     default: undefined
@@ -110,7 +106,8 @@ const emit = defineEmits([
   'on-toggle-filter',
   'on-toggle-settings',
   'on-click-edit',
-  'on-click-copy'
+  'on-click-copy',
+  'on-submit-edit-cell'
 ])
 
 const {
@@ -138,7 +135,8 @@ const {
   handleSubmitFilter,
   handleSearch,
   handleUpdateSortKey,
-  handleUpdateSortDirection
+  handleUpdateSortDirection,
+  handleSubmitEditCell
 } = useVueEntityTable({ props, emit })
 </script>
 <template>
@@ -165,6 +163,7 @@ const {
         @update:search="(value) => handleSearch(value)"
         @on-update-data="handleUpdateData"
         @on-drop-all-selected="handleDropAllSelected"
+        @on-submit-edit-cell="handleSubmitEditCell"
       >
         <template #topbar-left>
           <slot name="topbar-left" />
@@ -181,6 +180,7 @@ const {
         :expanded-rows="expandedRows"
         :loading="showLoading"
         :editable="editable"
+        :edit-icon="editIcon"
         :copyable="copyable"
         :sort-key="sortKey"
         :sort-direction="sortDirection"
@@ -202,6 +202,7 @@ const {
               index
             })
         "
+        @on-submit-edit-cell="handleSubmitEditCell"
       >
         <template
           v-for="(_, slotName) in slots"

@@ -54,7 +54,8 @@ const emit = defineEmits([
   'update:toggle-aside',
   'update:search',
   'on-update-data',
-  'on-drop-all-selected'
+  'on-drop-all-selected',
+  'on-submit-edit-cell'
 ])
 
 const handleUpdateData = () => {

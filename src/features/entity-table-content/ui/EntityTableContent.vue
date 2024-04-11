@@ -53,6 +53,10 @@ const props = defineProps({
     type: Boolean,
     default: true
   },
+  editIcon: {
+    type: String,
+    default: 'pi pi-pencil'
+  },
   copyable: {
     type: Boolean,
     default: true
@@ -77,7 +81,8 @@ const emit = defineEmits([
   'update:sortKey',
   'update:sortDirection',
   'on-click-edit',
-  'on-click-copy'
+  'on-click-copy',
+  'on-submit-edit-cell'
 ])
 
 const {
@@ -89,6 +94,7 @@ const {
   totalCols,
   onChangeSelectedAll,
   onChangeSelectedRow,
+  handleSubmitEditCell,
   getColumnValue,
   isRowSelected
 } = useEntityTableContent({ props, emit })
@@ -195,8 +201,8 @@ const {
                   :style="TABLE_CONTROLS_CELL_STYLES"
                 >
                   <Button
+                    :icon="editIcon || 'pi pi-pencil'"
                     class="vue-entity-table-content__icon"
-                    icon="pi pi-pencil"
                     text
                     rounded
                     @click="() => emit('on-click-edit', { row, index })"
@@ -276,7 +282,7 @@ const {
                       :row="row"
                       @on-submit="
                         ({ value }) =>
-                          column.submitFunction({
+                          handleSubmitEditCell({
                             column,
                             row,
                             value,
