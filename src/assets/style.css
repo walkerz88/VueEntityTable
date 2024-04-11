@@ -3,6 +3,7 @@
 .vue-entity-table {
   position: relative;
   height: 100%;
+  font-weight: inherit;
 }
 
 .vue-entity-table__inner {
@@ -141,7 +142,6 @@
 
 .vue-entity-table-content__table td {
   border-bottom: 1px solid var(--vue-entity-table-bluegray-100);
-  font-weight: 400;
 }
 
 .vue-entity-table-content__table td:hover .vue-entity-table-copy-cell__button {
@@ -326,6 +326,7 @@
 }
 
 .vue-entity-table-pagination .p-paginator {
+  padding: 0;
   background-color: var(--vue-entity-table-gray-100);
 }
 
@@ -364,7 +365,6 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  font-weight: 400;
 }
 
 /* helpers */

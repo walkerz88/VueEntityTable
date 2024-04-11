@@ -75,6 +75,8 @@ const tableData = ref([])
 const search = ref('')
 const sortKey = ref(null)
 const sortDirection = ref(SORT_DESC)
+const selectedRows = ref([])
+const expandedRows = ref([])
 
 const fetchDataFunction = async (payload) => {
   console.log(payload)
@@ -99,16 +101,24 @@ const searchDataFunction = async (payload) => {
   <div class="wrapper">
     <VueEntityTable
       v-model="tableData"
+      v-model:selected-rows="selectedRows"
       v-model:search="search"
       v-model:sort-key="sortKey"
       v-model:sort-direction="sortDirection"
+      v-model:expanded-rows="expandedRows"
       :descriptor="descriptor"
       :filter-descriptor="filterDescriptor"
       :fetch-data-function="fetchDataFunction"
       :search-data-function="searchDataFunction"
       show-total
       @on-click-edit="({ row }) => console.log({ row })"
-    />
+    >
+      <template #expansion="{ row, index }">
+        <div class="expansion">
+          <pre>Index: {{ index }}<br><br>Row Full Data: {{ row }}</pre>
+        </div>
+      </template>
+    </VueEntityTable>
   </div>
 </template>
 
@@ -117,7 +127,7 @@ body {
   padding: 0;
   margin: 0;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 * {
@@ -126,5 +136,9 @@ body {
 
 .wrapper {
   height: 100vh;
+}
+
+.expansion {
+  padding: 1rem;
 }
 </style>

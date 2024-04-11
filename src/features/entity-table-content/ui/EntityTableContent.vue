@@ -215,9 +215,9 @@ const {
                         ? 'primary'
                         : 'secondary'
                     "
+                    class="vue-entity-table-content__icon"
                     text
                     rounded
-                    class="c-icon-button"
                     @click="() => emit('update:expandedRows', { row, index })"
                   />
                 </td>

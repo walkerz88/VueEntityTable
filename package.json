@@ -2,7 +2,7 @@
   "name": "vue-entity-table",
   "author": "Anikin Alexander",
   "private": false,
-  "version": "0.2.3",
+  "version": "1.0.1",
   "files": [
     "dist"
   ],
