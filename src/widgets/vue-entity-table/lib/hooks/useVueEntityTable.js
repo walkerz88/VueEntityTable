@@ -368,7 +368,13 @@ export const useVueEntityTable = ({ props, emit }) => {
     abortController.abort()
   })
 
-  watch(() => props.fetchTrigger, handleUpdateData)
+  watch(
+    () => props.fetchTrigger,
+    () => {
+      dropBeforeFetch()
+      handleUpdateData()
+    }
+  )
 
   return {
     showLoading,
