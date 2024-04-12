@@ -72,7 +72,11 @@ const props = defineProps({
   sortDirection: {
     type: String,
     default: SORT_DESC
-  }
+  },
+  rowUniqueKey: {
+    type: String,
+    default: 'id'
+  },
 })
 
 const emit = defineEmits([

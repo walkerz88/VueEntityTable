@@ -91,6 +91,10 @@ const props = defineProps({
   sortDirection: {
     type: String,
     default: SORT_DESC
+  },
+  rowUniqueKey: {
+    type: String,
+    default: 'id'
   }
 })
 
@@ -184,6 +188,7 @@ const {
         :copyable="copyable"
         :sort-key="sortKey"
         :sort-direction="sortDirection"
+        :row-unique-key="rowUniqueKey"
         @update:sort-key="handleUpdateSortKey"
         @update:sort-direction="handleUpdateSortDirection"
         @update:selected-rows="handleUpdateSelectedRows"
