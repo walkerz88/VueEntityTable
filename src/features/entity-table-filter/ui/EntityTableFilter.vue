@@ -1,6 +1,5 @@
 <script setup>
 import Button from 'primevue/button'
-import InputText from 'primevue/inputtext'
 import MultiSelect from 'primevue/multiselect'
 import Chips from 'primevue/chips'
 import TriStateCheckbox from 'primevue/tristatecheckbox'
@@ -13,7 +12,8 @@ import {
   VCheckbox,
   VCalendar,
   VInputText,
-  VDropdown
+  VDropdown,
+  VInputRange
 } from '@/shared'
 
 import {
@@ -22,7 +22,8 @@ import {
   FIELD_TYPE_MULTICHECKBOX,
   FIELD_TYPE_CHIPS,
   FIELD_TYPE_CHECKBOX,
-  FIELD_TYPE_CALENDAR
+  FIELD_TYPE_CALENDAR,
+  FIELD_TYPE_RANGE
 } from '@/shared/constants/fieldTypes'
 
 import { useEntityTableFilter } from '../lib'
@@ -153,6 +154,21 @@ const { generateId, handleChange, handleDrop, handleSubmit } =
           @update:model-value="
             (value) => handleChange({ name: field.name, value })
           "
+        />
+
+        <VInputRange
+          v-else-if="field.type === FIELD_TYPE_RANGE"
+          :label="field.label"
+          :from="modelValue[field.valueFrom]"
+          :to="modelValue[field.valueTo]"
+          :id-from="generateId(field.nameFrom)"
+          :id-to="generateId(field.nameTo)"
+          :placeholder-from="field.placeholderFrom"
+          :placeholder-to="field.placeholderTo"
+          @update:from="
+            (value) => handleChange({ name: field.nameFrom, value })
+          "
+          @update:to="(value) => handleChange({ name: field.nameTo, value })"
         />
 
         <VInputText

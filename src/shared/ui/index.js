@@ -9,3 +9,4 @@ export * from "./input-text";
 export * from "./loader";
 export * from "./submit-button";
 export * from "./calendar";
+export * from "./input-range";

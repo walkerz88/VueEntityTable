@@ -68,6 +68,16 @@ const filterDescriptor = [
         value: 'world'
       }
     ]
+  },
+  {
+    label: 'Range',
+    type: 'range',
+    nameFrom: 'rangeFrom',
+    nameTo: 'rangeTo',
+    valueFrom: '',
+    valueTo: '',
+    placeholderFrom: 'From',
+    placeholderTo: 'To'
   }
 ]
 
