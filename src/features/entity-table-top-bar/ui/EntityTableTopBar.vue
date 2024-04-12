@@ -47,6 +47,10 @@ const props = defineProps({
   searchLoading: {
     type: Boolean,
     default: false
+  },
+  showSelectedCount: {
+    type: Boolean,
+    default: true
   }
 })
 
@@ -115,7 +119,9 @@ const handleToggleFilter = () => {
       />
       <slot name="topbar-left" />
       <div
-        v-if="isEmptyValue(selectedRows) === false"
+        v-if="
+          showSelectedCount === true && isEmptyValue(selectedRows) === false
+        "
         class="vue-entity-table-top-bar__counter"
       >
         <span>Выбрано записей: {{ selectedRows.length }}</span>

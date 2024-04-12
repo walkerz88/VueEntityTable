@@ -95,6 +95,10 @@ const props = defineProps({
   rowUniqueKey: {
     type: String,
     default: 'id'
+  },
+  showSelectedCount: {
+    type: Boolean,
+    default: true
   }
 })
 
@@ -163,6 +167,7 @@ const {
         :filter-is-dirty="filterIsDirty"
         :loading="showLoading"
         :search-loading="isSearchLoading"
+        :show-selected-count="showSelectedCount"
         @update:toggle-aside="handleToggleSidebar"
         @update:search="(value) => handleSearch(value)"
         @on-update-data="handleUpdateData"
