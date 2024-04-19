@@ -144,7 +144,10 @@
   border-bottom: 1px solid var(--vue-entity-table-bluegray-100);
 }
 
-.vue-entity-table-content__table td:hover .vue-entity-table-copy-cell__button {
+.vue-entity-table-content__table
+  tr:not(.vue-entity-table-content__expansion)
+  td:hover
+  .vue-entity-table-copy-cell__button {
   display: inline-flex;
 }
 
