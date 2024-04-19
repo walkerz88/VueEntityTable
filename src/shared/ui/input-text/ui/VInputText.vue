@@ -47,10 +47,10 @@ defineEmits(['update:modelValue'])
 
 <template>
   <VField :id="id" :label="label" :required="required" :disabled="disabled">
-    <div class="VInputText__wrapper">
+    <div class="vet-input-text__wrapper">
       <i
         v-show="loading === true"
-        class="pi pi-spin pi-spinner VInputText__spinner"
+        class="pi pi-spin pi-spinner vet-input-text__spinner"
       />
       <InputText
         :id="id"
@@ -68,12 +68,12 @@ defineEmits(['update:modelValue'])
 </template>
 
 <style scoped>
-.VInputText__wrapper {
+.vet-input-text__wrapper {
   width: 100%;
   position: relative;
 }
 
-.VInputText__spinner {
+.vet-input-text__spinner {
   position: absolute;
   top: 50%;
   right: 1rem;

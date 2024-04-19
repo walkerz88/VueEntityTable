@@ -14,15 +14,15 @@ defineProps({
 <template>
   <div
     :class="[
-      'VLoader',
-      overlay === true && 'VLoader--overlay',
-      inline === true && 'VLoader--inline'
+      'vet-loader',
+      overlay === true && 'vet-loader--overlay',
+      inline === true && 'vet-loader--inline'
     ]"
   />
 </template>
 
 <style scoped>
-.VLoader {
+.vet-loader {
   position: absolute;
   top: 0;
   left: 0;
@@ -34,7 +34,7 @@ defineProps({
   z-index: 500;
 }
 
-.VLoader:before {
+.vet-loader:before {
   content: '';
   position: sticky;
   top: calc(50% - 20px);
@@ -44,14 +44,14 @@ defineProps({
   border-radius: 50%;
   border: 5px solid var(--text-color);
   border-right-color: #f90;
-  animation: VLoader 1s linear infinite;
+  animation: vet-loader 1s linear infinite;
 }
 
-.VLoader--overlay {
+.vet-loader--overlay {
   background-color: #fff;
 }
 
-.VLoader--inline {
+.vet-loader--inline {
   position: relative;
   display: inline-flex;
   width: auto;
@@ -59,7 +59,7 @@ defineProps({
   background-color: transparent;
 }
 
-@keyframes VLoader {
+@keyframes vet-loader {
   0% {
     transform: rotate(0deg);
   }

@@ -43,11 +43,11 @@ const onError = () => {
 <template>
   <div
     :class="[
-      'VImageThumb',
-      (isEmptyValue(src) === true || isBroken === true) && 'VImageThumb--empty'
+      'vet-image-thumb',
+      (isEmptyValue(src) === true || isBroken === true) && 'vet-image-thumb--empty'
     ]"
   >
-    <div class="VImageThumb__content">
+    <div class="vet-image-thumb__content">
       <template v-if="isEmptyValue(src) === false && isBroken === false">
         <img
           v-if="preview === false"
@@ -99,23 +99,23 @@ const onError = () => {
 </template>
 
 <style scoped>
-.VImageThumb {
+.vet-image-thumb {
   width: 100%;
 }
 
-.VImageThumb__content {
+.vet-image-thumb__content {
   position: relative;
   padding-bottom: 100%;
 }
 
-.VImageThumb__content > img {
+.vet-image-thumb__content > img {
   position: absolute;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.VImageThumb__content > .p-image {
+.vet-image-thumb__content > .p-image {
   position: absolute;
   top: 0;
   left: 0;
@@ -123,13 +123,13 @@ const onError = () => {
   height: 100%;
 }
 
-.VImageThumb__content > .p-image > img {
+.vet-image-thumb__content > .p-image > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.VImageThumb--empty {
+.vet-image-thumb--empty {
   opacity: 0.2;
 }
 </style>

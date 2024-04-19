@@ -54,8 +54,8 @@ defineEmits(['update:modelValue'])
 </script>
 
 <template>
-  <div :class="['VCheckbox', removeMargin && 'VCheckbox--remove-margin']">
-    <div class="VCheckbox__content">
+  <div :class="['vet-checkbox', removeMargin && 'vet-checkbox--remove-margin']">
+    <div class="vet-checkbox__content">
       <Checkbox
         :input-id="id"
         :model-value="modelValue"
@@ -68,7 +68,7 @@ defineEmits(['update:modelValue'])
           (nextValue) => $emit('update:modelValue', nextValue)
         "
       />
-      <label v-if="label" :for="id" class="VCheckbox__label">
+      <label v-if="label" :for="id" class="vet-checkbox__label">
         {{ label }}
       </label>
     </div>
@@ -79,25 +79,25 @@ defineEmits(['update:modelValue'])
 </template>
 
 <style scoped>
-.VCheckbox {
+.vet-checkbox {
   margin-bottom: 1rem;
 }
 
-.VCheckbox--remove-margin {
+.vet-checkbox--remove-margin {
   margin-bottom: 0;
 }
 
-.VCheckbox__content {
+.vet-checkbox__content {
   display: flex;
   gap: 0.5rem;
 }
 
-.VCheckbox__label {
+.vet-checkbox__label {
   margin-top: 1px;
   cursor: pointer;
 }
 
-.VCheckbox__caption {
+.vet-checkbox__caption {
   color: var(--text-color-secondary);
   margin-top: 0.25rem;
 }

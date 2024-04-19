@@ -161,6 +161,33 @@ export const useVueEntityTable = ({ props, emit }) => {
     handleUpdateSelectedRows([])
   }
 
+  const onUpdateExpandedRows = (value) => {
+    emit('update:expandedRows', value)
+  }
+
+  const handleDropAllExpanded = () => {
+    onUpdateExpandedRows([])
+  }
+
+  const handleUpdateExpandedRows = ({ row, index }) => {
+    if (props.expandedRows.includes(index)) {
+      onUpdateExpandedRows(props.expandedRows.filter((i) => i !== index))
+
+      emit('on-row-collapse', { row, index })
+
+      return
+    }
+
+    onUpdateExpandedRows([...props.expandedRows, index])
+
+    emit('on-row-expand', { row, index })
+  }
+
+  const dropBeforeFetch = () => {
+    handleDropAllSelected()
+    handleDropAllExpanded()
+  }
+
   const onFetchData = async () => {
     abortController.abort()
 
@@ -209,29 +236,6 @@ export const useVueEntityTable = ({ props, emit }) => {
         isLoading.value = false
       }
     }
-  }
-
-  const onUpdateExpandedRows = (value) => {
-    emit('update:expandedRows', value)
-  }
-
-  const handleUpdateExpandedRows = ({ row, index }) => {
-    if (props.expandedRows.includes(index)) {
-      onUpdateExpandedRows(props.expandedRows.filter((i) => i !== index))
-
-      emit('on-row-collapse', { row, index })
-
-      return
-    }
-
-    onUpdateExpandedRows([...props.expandedRows, index])
-
-    emit('on-row-expand', { row, index })
-  }
-
-  const dropBeforeFetch = () => {
-    handleUpdateSelectedRows([])
-    onUpdateExpandedRows([])
   }
 
   const handleUpdateData = () => {
@@ -331,6 +335,7 @@ export const useVueEntityTable = ({ props, emit }) => {
       stateOffset.value = stateLimit.value * page
     }
 
+    handleDropAllExpanded()
     initFetchData()
   }
 

@@ -12,8 +12,8 @@ defineProps({
 <template>
   <small
     :class="[
-      'VInputCaption',
-      isEmptyValue(severity) === false && `VInputCaption--${severity}`
+      'vet-input-caption',
+      isEmptyValue(severity) === false && `vet-input-caption--${severity}`
     ]"
   >
     <slot />
@@ -21,17 +21,17 @@ defineProps({
 </template>
 
 <style scoped>
-.VInputCaption {
+.vet-input-caption {
   display: block;
   margin-top: 0.25rem;
   color: var(--text-color-secondary);
 }
 
-.VInputCaption + .VInputCaption {
+.vet-input-caption + .vet-input-caption {
   margin-top: 0;
 }
 
-.VInputCaption--danger {
+.vet-input-caption--danger {
   color: var(--red-500);
 }
 </style>

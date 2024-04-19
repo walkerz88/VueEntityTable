@@ -43,13 +43,13 @@ const handleOnClick = () => {
     :text="text"
     :loading="loading === true"
     :disabled="disabled === true"
-    class="VSubmitButton"
+    class="vet-submit-button"
     @click="handleOnClick"
   />
 </template>
 
 <style scoped>
-.VSubmitButton:deep(.p-button-label) {
+.vet-submit-button:deep(.p-button-label) {
   transition: none;
 }
 </style>

@@ -68,17 +68,17 @@ const getValidationLocalization = inject('getValidationLocalization')
 
 <template>
   <VField :id="idFrom" :label="label" :required="required" :disabled="disabled">
-    <div class="v-input-range">
+    <div class="vet-input-range">
       <i
         v-show="loading === true"
-        class="pi pi-spin pi-spinner v-input-range__spinner"
+        class="pi pi-spin pi-spinner vet-input-range__spinner"
       />
       <InputText
         :id="idFrom"
         :model-value="from"
         :disabled="disabled"
         :placeholder="placeholderFrom"
-        :class="{ 'v-input-range__from': true, 'p-invalid': error }"
+        :class="{ 'vet-input-range__from': true, 'p-invalid': error }"
         :autofocus="autofocus"
         class=""
         @update:model-value="(value) => $emit('update:from', value)"
@@ -88,7 +88,7 @@ const getValidationLocalization = inject('getValidationLocalization')
         :model-value="to"
         :disabled="disabled"
         :placeholder="placeholderTo"
-        :class="{ 'v-input-range__to': true, 'p-invalid': error }"
+        :class="{ 'vet-input-range__to': true, 'p-invalid': error }"
         @update:model-value="(value) => $emit('update:to', value)"
       />
     </div>
@@ -107,30 +107,30 @@ const getValidationLocalization = inject('getValidationLocalization')
 </template>
 
 <style scoped>
-.v-input-range {
+.vet-input-range {
   display: flex;
   width: 100%;
   position: relative;
 }
 
-.v-input-range__spinner {
+.vet-input-range__spinner {
   position: absolute;
   top: 50%;
   right: 1rem;
   margin-top: -7px;
 }
 
-.v-input-range__from,
-.v-input-range__to {
+.vet-input-range__from,
+.vet-input-range__to {
   width: 50%;
 }
 
-.v-input-range__from {
+.vet-input-range__from {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-.v-input-range__to {
+.vet-input-range__to {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }

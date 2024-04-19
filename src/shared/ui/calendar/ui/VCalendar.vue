@@ -97,7 +97,7 @@ defineEmits(['update:modelValue'])
       :show-seconds="showSeconds"
       :hour-format="hourFormat"
       :hide-on-date-time-select="hideOnDateTimeSelect"
-      class="v-calendar"
+      class="vet-calendar"
       @update:model-value="(value) => $emit('update:modelValue', value)"
     />
     <VInputCaption v-if="caption">
@@ -107,7 +107,7 @@ defineEmits(['update:modelValue'])
 </template>
 
 <style scoped>
-.v-calendar {
+.vet-calendar {
   width: 100%;
 }
 </style>

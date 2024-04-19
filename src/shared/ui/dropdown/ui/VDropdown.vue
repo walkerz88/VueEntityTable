@@ -73,7 +73,7 @@ defineEmits(['update:modelValue'])
       :placeholder="placeholder"
       :autofocus="autofocus"
       :show-clear="showClear"
-      class="v-dropdown"
+      class="vet-dropdown"
       @update:model-value="(value) => $emit('update:modelValue', value)"
     />
     <VInputCaption v-if="caption">
@@ -83,7 +83,7 @@ defineEmits(['update:modelValue'])
 </template>
 
 <style scoped>
-.v-dropdown {
+.vet-dropdown {
   width: 100%;
 }
 </style>
