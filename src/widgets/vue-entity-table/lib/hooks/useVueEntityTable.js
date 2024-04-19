@@ -10,8 +10,6 @@ import {
 
 import { isEmptyValue, debounce } from '@/shared'
 
-let abortController = new AbortController()
-
 const getInitFilterValues = (filterDescriptor) => {
   if (isEmptyValue(filterDescriptor) === true) {
     return {}
@@ -25,6 +23,7 @@ const getInitFilterValues = (filterDescriptor) => {
 export const useVueEntityTable = ({ props, emit }) => {
   const slots = useSlots()
 
+  const abortController = ref(new AbortController())
   const stateTotal = ref(0)
   const stateOffset = ref(0)
   const stateLimit = ref(20)
@@ -189,9 +188,9 @@ export const useVueEntityTable = ({ props, emit }) => {
   }
 
   const onFetchData = async () => {
-    abortController.abort()
+    abortController.value.abort()
 
-    abortController = new AbortController()
+    abortController.value = new AbortController()
 
     const { sortKey, sortDirection } = props
 
@@ -208,7 +207,7 @@ export const useVueEntityTable = ({ props, emit }) => {
       }
     }
 
-    const options = { signal: abortController.signal }
+    const options = { signal: abortController.value.signal }
 
     isLoading.value = true
 
@@ -264,9 +263,9 @@ export const useVueEntityTable = ({ props, emit }) => {
       return
     }
 
-    abortController.abort()
+    abortController.value.abort()
 
-    abortController = new AbortController()
+    abortController.value = new AbortController()
 
     const payload = {
       query: props.search,
@@ -274,7 +273,7 @@ export const useVueEntityTable = ({ props, emit }) => {
       offset: stateOffset.value
     }
 
-    const options = { signal: abortController.signal }
+    const options = { signal: abortController.value.signal }
 
     isLoading.value = true
 
@@ -370,7 +369,7 @@ export const useVueEntityTable = ({ props, emit }) => {
   })
 
   onUnmounted(() => {
-    abortController.abort()
+    abortController.value.abort()
   })
 
   watch(
