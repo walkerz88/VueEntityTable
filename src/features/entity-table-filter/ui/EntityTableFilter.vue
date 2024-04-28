@@ -185,9 +185,9 @@ const { generateId, handleChange, handleDrop, handleSubmit } =
       </template>
     </div>
     <div class="vue-entity-table-filter__footer">
-      <Button label="Сбросить" severity="secondary" text @click="handleDrop" />
+      <Button label="Clear" severity="secondary" text @click="handleDrop" />
       <VSubmitButton
-        label="Применить"
+        label="Submit"
         severity="primary"
         @on-click="handleSubmit"
       />

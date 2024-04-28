@@ -46,7 +46,7 @@ defineProps({
   },
   placeholder: {
     type: String,
-    default: 'ДД.ММ.ГГГГ'
+    default: 'DD.MM.YYYY'
   },
   iconDisplay: {
     type: String,

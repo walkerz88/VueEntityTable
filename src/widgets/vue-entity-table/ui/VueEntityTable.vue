@@ -235,7 +235,7 @@ const {
     <EntityTableAside
       v-if="hasFilter"
       :model-value="sidebarActive.filter"
-      title="Фильтр"
+      title="Filter"
       icon="pi pi-filter"
       @update:model-value="closeAllSidebars"
     >
