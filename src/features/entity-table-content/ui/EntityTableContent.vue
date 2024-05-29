@@ -77,6 +77,10 @@ const props = defineProps({
     type: String,
     default: 'id'
   },
+  headerNoWrap: {
+    type: Boolean,
+    default: true
+  }
 })
 
 const emit = defineEmits([
@@ -119,7 +123,12 @@ const {
       ]"
     >
       <table class="vue-entity-table-content__table">
-        <thead class="vue-entity-table-content__header">
+        <thead
+          :class="[
+            'vue-entity-table-content__header',
+            headerNoWrap === true && 'vue-entity-table-content__header--nowrap'
+          ]"
+        >
           <tr>
             <!-- Заголовок массового выделения -->
             <th

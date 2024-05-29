@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import Button from 'primevue/button'
 
 import { VueEntityTable } from './widgets/vue-entity-table'
 
@@ -131,6 +132,9 @@ const handleSubmitEditCell = (data) => {
       @on-click-edit="handleClickEdit"
       @on-submit-edit-cell="handleSubmitEditCell"
     >
+      <template #topbar-right>
+        <Button>Click me</Button>
+      </template>
       <template #expansion="{ row, index }">
         <div class="expansion">
           <pre>Index: {{ index }}<br><br>Row Full Data: {{ row }}</pre>

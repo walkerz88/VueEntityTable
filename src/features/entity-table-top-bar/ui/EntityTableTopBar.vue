@@ -80,17 +80,18 @@ const handleToggleFilter = () => {
 </script>
 <template>
   <div class="vue-entity-table-top-bar">
-    <div class="vue-entity-table-top-bar__left">
-      <Button
-        v-if="hasFilter === true"
-        icon="pi pi-filter"
-        :severity="filterIsDirty === true ? 'primary' : 'secondary'"
-        text
-        rounded
-        class="vue-entity-table-top-bar__icon-button"
-        @click="handleToggleFilter"
-      />
-      <!-- <Button
+    <div class="vue-entity-table-top-bar__content">
+      <div class="vue-entity-table-top-bar__left">
+        <Button
+          v-if="hasFilter === true"
+          icon="pi pi-filter"
+          :severity="filterIsDirty === true ? 'primary' : 'secondary'"
+          text
+          rounded
+          class="vue-entity-table-top-bar__icon-button"
+          @click="handleToggleFilter"
+        />
+        <!-- <Button
         v-if="hasSettings === true"
         icon="pi pi-cog"
         severity="secondary"
@@ -99,44 +100,46 @@ const handleToggleFilter = () => {
         class="vue-entity-table-top-bar__icon-button"
         @click="handleToggleSettings"
       /> -->
-      <Button
-        icon="pi pi-refresh"
-        severity="secondary"
-        text
-        rounded
-        class="vue-entity-table-top-bar__icon-button"
-        :loading="loading === true"
-        @click="handleUpdateData"
-      />
-      <VInputText
-        v-if="search !== undefined"
-        :id="searchId"
-        :model-value="search"
-        :loading="searchLoading === true"
-        :placeholder="searchPlaceholder"
-        remove-margin
-        @update:model-value="(value) => emit('update:search', value)"
-      />
-      <slot name="topbar-left" />
-      <div
-        v-if="
-          showSelectedCount === true && isEmptyValue(selectedRows) === false
-        "
-        class="vue-entity-table-top-bar__counter"
-      >
-        <span>Выбрано записей: {{ selectedRows.length }}</span>
         <Button
-          icon="pi pi-times"
+          icon="pi pi-refresh"
           severity="secondary"
           text
           rounded
           class="vue-entity-table-top-bar__icon-button"
-          @click="handleDropAllSelected"
+          :loading="loading === true"
+          @click="handleUpdateData"
         />
+        <VInputText
+          v-if="search !== undefined"
+          :id="searchId"
+          :model-value="search"
+          :loading="searchLoading === true"
+          :placeholder="searchPlaceholder"
+          class="vue-entity-table-top-bar__search"
+          remove-margin
+          @update:model-value="(value) => emit('update:search', value)"
+        />
+        <slot name="topbar-left" />
+        <div
+          v-if="
+            showSelectedCount === true && isEmptyValue(selectedRows) === false
+          "
+          class="vue-entity-table-top-bar__counter"
+        >
+          <span>Выбрано записей: {{ selectedRows.length }}</span>
+          <Button
+            icon="pi pi-times"
+            severity="secondary"
+            text
+            rounded
+            class="vue-entity-table-top-bar__icon-button"
+            @click="handleDropAllSelected"
+          />
+        </div>
       </div>
-    </div>
-    <div class="vue-entity-table-top-bar__right">
-      <slot name="topbar-right" />
+      <div class="vue-entity-table-top-bar__right">
+        <slot name="topbar-right" />
+      </div>
     </div>
   </div>
 </template>

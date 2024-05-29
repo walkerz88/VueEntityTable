@@ -7,7 +7,6 @@
 }
 
 .vue-entity-table__inner {
-  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -175,6 +174,10 @@
   text-align: left;
   background-color: var(--vue-entity-table-gray-100);
   z-index: 100;
+}
+
+.vue-entity-table-content__header--nowrap {
+  white-space: nowrap;
 }
 
 .vue-entity-table-content__th {
@@ -345,8 +348,31 @@
 /* vue-entity-table-top-bar */
 
 .vue-entity-table-top-bar {
+  position: relative;
+}
+
+.vue-entity-table-top-bar:before {
+  content: '';
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 2rem;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  z-index: 10;
+  pointer-events: none;
+}
+
+.vue-entity-table-top-bar__content {
+  flex: 0 0 auto;
   display: flex;
   flex-wrap: wrap;
+  gap: 1rem;
   justify-content: space-between;
   padding: 0.5rem 1rem;
   border-bottom: 1px solid var(--vue-entity-table-bluegray-100);
@@ -360,6 +386,7 @@
 }
 
 .vue-entity-table-top-bar__icon-button {
+  flex: 0 0 auto;
   width: 2rem;
   height: 2rem;
 }
@@ -370,6 +397,10 @@
   gap: 1rem;
 }
 
+.vue-entity-table-top-bar__search {
+  min-width: 170px;
+}
+
 /* helpers */
 .vue-entity-table-align-center {
   text-align: center;
@@ -377,4 +408,34 @@
 
 .vue-entity-table-align-right {
   text-align: right;
+}
+
+@media screen and (max-width: 767px) {
+  .vue-entity-table-top-bar:before {
+    display: block;
+  }
+
+  .vue-entity-table--adaptive .vue-entity-table-top-bar__content {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    white-space: nowrap;
+    overflow: auto;
+  }
+
+  .vue-entity-table--adaptive .vue-entity-table-pagination {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    font-size: 12px;
+  }
+
+  .vue-entity-table--adaptive .vue-entity-table-pagination .p-paginator {
+    justify-content: space-between;
+  }
+
+  .vue-entity-table--adaptive .vue-entity-table-pagination .p-link {
+    min-width: 1.5rem;
+    height: 1.5rem;
+    font-size: 13px;
+  }
 }

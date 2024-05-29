@@ -99,6 +99,14 @@ const props = defineProps({
   showSelectedCount: {
     type: Boolean,
     default: true
+  },
+  headerNoWrap: {
+    type: Boolean,
+    default: true
+  },
+  adaptiveStyles: {
+    type: Boolean,
+    default: true
   }
 })
 
@@ -148,7 +156,8 @@ const {
 } = useVueEntityTable({ props, emit })
 </script>
 <template>
-  <div class="vue-entity-table">
+  <div :class="['vue-entity-table', 
+        adaptiveStyles === true && 'vue-entity-table--adaptive']">
     <div
       :class="[
         'vue-entity-table__inner',
@@ -194,6 +203,7 @@ const {
         :sort-key="sortKey"
         :sort-direction="sortDirection"
         :row-unique-key="rowUniqueKey"
+        :header-now-wrap="headerNoWrap"
         @update:sort-key="handleUpdateSortKey"
         @update:sort-direction="handleUpdateSortDirection"
         @update:selected-rows="handleUpdateSelectedRows"
