@@ -349,6 +349,7 @@
 
 .vue-entity-table-top-bar {
   position: relative;
+  background-color: var(--vue-entity-table-gray-100);
 }
 
 .vue-entity-table-top-bar:before {
