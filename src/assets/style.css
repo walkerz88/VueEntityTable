@@ -434,8 +434,7 @@
   }
 
   .vue-entity-table--adaptive .vue-entity-table-pagination .p-link {
-    min-width: 1.5rem;
-    height: 1.5rem;
-    font-size: 13px;
+    min-width: 2rem;
+    height: 2rem;
   }
 }
